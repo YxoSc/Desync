@@ -1,0 +1,41 @@
+-- Dapatkan karakter pemain
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Daftar bagian yang akan diatur anchornya
+local partsToFreeze = {
+    "Head",
+    "UpperTorso",
+    "HumanoidRootPart",
+    "LowerTorso",
+    "LeftHand",
+    "RightHand",
+    "LeftLowerArm",
+    "RightLowerArm",
+    "LeftUpperArm",
+    "RightUpperArm",
+    "LeftFoot",
+    "LeftLowerLeg",
+    "LeftUpperLeg",
+    "RightLowerLeg",
+    "RightFoot",
+    "RightUpperLeg"
+}
+
+-- Fungsi untuk mengubah status anchoring
+local function toggleAnchoring()
+    while true do
+        for _, partName in ipairs(partsToFreeze) do
+            local part = character:FindFirstChild(partName)
+            if part then
+                part.Anchored = false
+            end
+        end
+        wait(math.random(400, 600) / 1000) -- Tunggu waktu acak antara 400ms dan 600ms sebelum mengulangi loop
+    end
+end
+
+-- Cek apakah karakter sudah ada
+if character then
+    toggleAnchoring()
+end
